@@ -41,7 +41,7 @@ class signupComp extends React.Component {
                         <Input autoComplete='email' autoFocus onChange={(e) => this.userTyping('email', e)} id='signup-email-input'></Input>
                         </FormControl>
                         <FormControl required fullWidth margin='normal'>
-                        <InputLabel htmlFor='signup-password-input'>Create A Password</InputLabel>
+                        <InputLabel htmlFor='signup-password-input'>Enter Your Password</InputLabel>
                         <Input type="password" onChange={(e) => this.userTyping('password', e)} id='signup-password-input'></Input>
                         </FormControl>
                         <FormControl required fullWidth margin='normal'>
@@ -90,7 +90,7 @@ class signupComp extends React.Component {
         e.preventDefault();
 
         if(!this.formIsValid()) {
-            this.setState({ signupError: 'Passwords are not same! '});
+            this.setState({ signupError: 'Entered passwords are not same! '});
             return;
         }
 
@@ -111,12 +111,12 @@ class signupComp extends React.Component {
                 .set(userObj)
                 .then(() => {
                 this.props.history.push('/dashboard');
-            }, dbError => {
-                console.log('Failed to add user to the database: ', dbError);
+            }, dbErr => {
+                console.log('Failed to add user to the database: ', dbErr);
                 this.setState({ signupError: 'Failed to add user' });
             });
-        }, authError => {
-            console.log('Failed to create user: ', authError);
+        }, authErr => {
+            console.log('Failed to create user: ', authErr);
             this.setState({ signupError: 'Failed to add user' });
         });
     };
