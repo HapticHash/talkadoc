@@ -63,6 +63,63 @@ class signupComp extends React.Component {
             </main>
         );
     }
+
+    userTyping = (whichInput, event) => {
+        
+        switch (whichInput) {
+            case 'email': 
+                this.setState({ email: event.target.value });
+                break;
+
+            case 'password':
+                this.setState({ password: event.target.value });
+                break;
+            
+            case 'passwordConfirmation':
+                this.setState({ passwordConfirmation: event.target.value });
+                break;
+            
+            default:
+                break;
+        }
+    }
+
+    formIsValid = () => this.state.password === this.state.passwordConfirmation;
+
+    submitSignup = (e) => {
+        e.preventDefault();
+
+        if(!this.formIsValid()) {
+            this.setState({ signupError: 'Passwords are not same! '});
+            return;
+        }
+
+
+        firebase
+            .auth()
+            .createUserWithEmailAndPassword(this.state.email, this.state.password)
+            .then(authRes => {
+            const userObj = {
+                email: authRes.user.email,
+                friends: [],
+                messages: []
+            };
+            firebase
+                .firestore()
+                .collection('users')
+                .doc(this.state.email)
+                .set(userObj)
+                .then(() => {
+                this.props.history.push('/dashboard');
+            }, dbError => {
+                console.log('Failed to add user to the database: ', dbError);
+                this.setState({ signupError: 'Failed to add user' });
+            });
+        }, authError => {
+            console.log('Failed to create user: ', authError);
+            this.setState({ signupError: 'Failed to add user' });
+        });
+    };
 }
  
 export default withStyles(styles)(signupComp);
