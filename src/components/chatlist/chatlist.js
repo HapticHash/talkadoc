@@ -15,7 +15,29 @@ import NotificationImportant from '@material-ui/icons/NotificationImportant';
 class ChatListComp extends React.Component {
 
     render() {
-        return( <div> Hello from ChatList </div>);
+
+        const { classes } = this.props;
+
+        return(
+            <div> 
+                <main className={ classes.root }>
+                    <Button variant='contained'
+                     fullWidth
+                     color='primary'
+                     className={classes.newChatButton}
+                     onClick={this.newChat}>
+                    </Button>        
+                    <List>
+
+                    </List>
+                </main>            
+            </div>
+        
+        );
+    }
+
+    newChat = () => {
+        console.log('new chat is clicked.')
     }
 }
 
