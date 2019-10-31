@@ -1,9 +1,14 @@
 import React from 'react';
+import ChatListComp from '../chatlist/chatlist';
 
 class dashboardComp extends React.Component {
     state = {  }
     render() { 
-        return (<div>Hello World From Dashboard</div>);
+        return (
+        <div>
+            <ChatListComp> </ChatListComp>
+        </div>
+        );
     }
 }
  
