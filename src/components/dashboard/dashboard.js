@@ -1,5 +1,8 @@
 import React from 'react';
 import ChatListComp from '../chatlist/chatlist';
+import { Button, withStyles } from '@material-ui/core';
+import styles from './styles';
+import ChatViewComponent from '../chatview/chatview';
 const fb = require("firebase");
 
 class dashboardComp extends React.Component {
@@ -29,7 +32,14 @@ class dashboardComp extends React.Component {
                 selectedChatIndex={this.state.selectedChat}
                 newChatBtnFn={this.newChatBtnClicked}>
               </ChatListComp>
-   
+              {
+                this.state.newChatFormVisible ? 
+                null :
+                <ChatViewComponent 
+                  user={this.state.email}
+                  chat={this.state.chats[this.state.selectedChat]}>  </ChatViewComponent>
+              }
+              <Button onClick={this.signOut} className={classes.signOutBtn}>Sign Out</Button>
             </div>
           );
         } else {
@@ -37,9 +47,11 @@ class dashboardComp extends React.Component {
         }
       }
 
+      signOut = () => fb.auth().signOut();
+
 
         selectChat = async (chatIndex) => {
-            console.log('Selected chat is ', chatIndex);
+          this.setState({ selectedChat: chatIndex });
       }
 
       newChatBtnClicked = () => this.setState({ newChatFormVisible: true, selectedChat: null });
@@ -67,5 +79,4 @@ class dashboardComp extends React.Component {
       }
 }
   
- 
-export default dashboardComp;
+export default withStyles(styles)(dashboardComp);
