@@ -1,3 +1,6 @@
+import { border } from "@material-ui/system";
+import shadows from "@material-ui/core/styles/shadows";
+
 const styles = theme => ({
 
     content: {
@@ -13,41 +16,41 @@ const styles = theme => ({
     },
   
     userSent: {
-      float: 'left',
+      float: 'right',
       clear: 'both',
-      padding: '20px',
+      padding: '15px',
       boxSizing: 'border-box',
       wordWrap: 'break-word',
       marginTop: '10px',
-      backgroundColor: '#707BC4',
-      color: 'white',
-      width: '300px',
-      borderRadius: '10px'
+      backgroundColor: '#B3B2C0',
+      color: 'black',
+      maxWidth: '300px',
+      borderRadius: '20px 20px 0px 20px'
     },
   
     friendSent: {
-      float: 'right',
+      float: 'left',
       clear: 'both',
-      padding: '20px',
+      padding: '15px',
       boxSizing: 'border-box',
       wordWrap: 'break-word',
       marginTop: '10px',
-      backgroundColor: '#707BC4',
+      backgroundColor: '#1aa260',
       color: 'white',
-      width: '300px',
-      borderRadius: '10px'
+      maxWidth: '300px',
+      borderRadius: '0px 20px 20px 20px'
     },
   
     chatHeader: {
       width: 'calc(100% - 301px)',
-      height: '50px',
-      backgroundColor: '#344195',
+      height: '38px',
+      backgroundColor: '#2C2F33',
       position: 'fixed',
       marginLeft: '301px',
-      fontSize: '18px',
+      fontSize: '16px',
       textAlign: 'center',
       color: 'white',
-      paddingTop: '10px',
+      paddingTop: '8px',
       boxSizing: 'border-box'
     }
   
