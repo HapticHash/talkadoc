@@ -40,10 +40,10 @@ class dashboardComp extends React.Component {
                   user={this.state.email}
                   chat={this.state.chats[this.state.selectedChat]}>  </ChatViewComponent>
               }
-
+              
               {
                 this.state.selectedChat !== null && !this.state.newChatFormVisible ?
-                <ChatTextBoxComponent submitMessage={this.submitMessage}></ChatTextBoxComponent> :
+                <ChatTextBoxComponent submitMessageFn={this.submitMessage}></ChatTextBoxComponent> :
                 null
               }
 
@@ -57,11 +57,23 @@ class dashboardComp extends React.Component {
 
       signOut = () => fb.auth().signOut();
 
-      buildDocKey = (friend) => [this.state.email, friend].sort().join(':');
+      buildDocKey = (friend) => [this.state.email, friend].join(':');
 
       submitMessage = (msg) => {
-        const docKey = this.buildDocKey(this.state.chats[this.state.selectedChat].users.filter(_usr !== this.state.email)[0]);
+        const docKey = this.buildDocKey(this.state.chats[this.state.selectedChat].users.filter(_usr => _usr !== this.state.email)[0]);
         console.log(docKey);
+        fb
+          .firestore()
+          .collection('chats')
+          .doc(docKey)
+          .update({
+            messages: fb.firestore.FieldValue.arrayUnion({
+              sender: this.state.email,
+              message: msg, 
+              timestamp: Date.now()
+            }),
+            recieverHasRead: false
+          })
       }
 
       selectChat = async (chatIndex) => {
