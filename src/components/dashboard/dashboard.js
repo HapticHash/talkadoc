@@ -3,6 +3,7 @@ import ChatListComp from '../chatlist/chatlist';
 import { Button, withStyles } from '@material-ui/core';
 import styles from './styles';
 import ChatViewComponent from '../chatview/chatview';
+import ChatTextBoxComponent from '../chattextbox/chattextbox';
 const fb = require("firebase");
 
 class dashboardComp extends React.Component {
@@ -39,6 +40,13 @@ class dashboardComp extends React.Component {
                   user={this.state.email}
                   chat={this.state.chats[this.state.selectedChat]}>  </ChatViewComponent>
               }
+
+              {
+                this.state.selectedChat !== null && !this.state.newChatFormVisible ?
+                <ChatTextBoxComponent submitMessage={this.submitMessage}></ChatTextBoxComponent> :
+                null
+              }
+
               <Button onClick={this.signOut} className={classes.signOutBtn}>Sign Out</Button>
             </div>
           );
@@ -49,9 +57,15 @@ class dashboardComp extends React.Component {
 
       signOut = () => fb.auth().signOut();
 
+      buildDocKey = (friend) => [this.state.email, friend].sort().join(':');
 
-        selectChat = async (chatIndex) => {
-          this.setState({ selectedChat: chatIndex });
+      submitMessage = (msg) => {
+        const docKey = this.buildDocKey(this.state.chats[this.state.selectedChat].users.filter(_usr !== this.state.email)[0]);
+        console.log(docKey);
+      }
+
+      selectChat = async (chatIndex) => {
+        this.setState({ selectedChat: chatIndex });
       }
 
       newChatBtnClicked = () => this.setState({ newChatFormVisible: true, selectedChat: null });
