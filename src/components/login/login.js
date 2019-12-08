@@ -30,6 +30,9 @@ class loginComp extends React.Component {
         return (
             <main className={classes.main}>
                 <CssBaseline/>
+                <Typography className={classes.title} component="h1" variant="h4">
+                    Welcome to TalkaDoc
+                </Typography>
                 <Paper className={classes.paper}>
                 <Typography component="h1" variant="h5">
                     Log In!

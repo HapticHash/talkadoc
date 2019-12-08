@@ -33,6 +33,10 @@ const styles = theme => ({
       color: '#303f9f',
       fontWeight: 'bolder'
     },
+    title: {
+      margin: '10vh auto 0',
+      textAlign: 'center'
+    },
     errorText: {
       color: 'red',
       textAlign: 'center'

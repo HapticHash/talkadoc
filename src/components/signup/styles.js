@@ -10,6 +10,10 @@ const styles = theme => ({
       marginRight: 'auto',
     },
   },
+  title: {
+    margin: '10vh auto 0',
+    textAlign: 'center'
+  },
   paper: {
     marginTop: theme.spacing.unit * 8,
     display: 'flex',
